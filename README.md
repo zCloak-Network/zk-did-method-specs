@@ -2,7 +2,7 @@
 
 ## Summary
 
-Decentralized identifiers (DIDs) are a new type of identifiers that enables verifiable, self-sovereign digital identity. This ZK DID method specification describes a new DID method -- `ZK DID`, defines how the `ZK DIDs` are stored, presents more details information about the corresponding DID Documents and how to do CRUD operations on `ZK DID` Documents.
+Decentralized identifiers (DIDs) are a new type of identifiers that enables verifiable, self-sovereign digital identity. This ZK DID method specification describes a new DID method -- `ZK DID`, defines how the `ZK DIDs` are stored, presents more detailed information about the corresponding DID Documents and how to do CRUD operations on `ZK DID` Documents.
 
 This specification conforms to the requirements specified in the [DID specification[1]](https://www.w3.org/TR/did-core/) currently published by the W3C Credentials Community Group.
 
@@ -44,10 +44,10 @@ user-address = [a-zA-Z0-9]{1,64}
 
 ### ZK DID examples
 
-| did                                                       | type        | description
-|:----------------------------------------------------------|-------------|-----------------------------------------------------------------------------
-| did:zk:0x51fA67337...82EB6a9B22A   | EVM-based DID  | a `did` which relates to a brand new `Ethereum` address -- '0x51fA67337...82EB6a9B22A'
-| did:zk:sui:0xd5059a902ad02b...7ceaf7d6     | Non-EVM-based DID  | a `did` which relates to a brand new `Non-EVM-based` address -- '0xd5059a902ad02b...7ceaf7d6'
+| did                                                       | type        | description|
+|:----------------------------------------------------------|-------------|-----------------------------------------------------------------------------|
+| did:zk:0x11f8b77F34FCF14B7095BF5228Ac0606324E82D | EVM-based DID  | a `did` which relates to a brand new `Ethereum` address -- '0x51fA67337...82EB6a9B22A'|
+| did:zk:sui:0xe9f5c3e0a721335e08bcc1168d606257418fc847 | Non-EVM-based DID  | a `did` which relates to a brand new `Non-EVM-based` address (in this case --`sui` address) -- '0xd5059a902ad02b...7ceaf7d6' |
 
 
 
@@ -133,7 +133,7 @@ The following elements are needed for a W3C specification compliant DID Document
 
 ### Supported cryptography
 
-Currently, two public key and signing algorithms are supported:
+Currently, three public key and signing algorithms are supported:
 
 - [`Ed25519`](https://en.wikipedia.org/wiki/EdDSA#Ed25519) -- the EdDSA signature scheme using [SHA-512](https://en.wikipedia.org/wiki/SHA-2) (SHA-2) and [Curve25519](https://en.wikipedia.org/wiki/Curve25519).
 - [`Secp256k1`](https://en.bitcoin.it/wiki/Secp256k1) with the ECDSA algorithm -- defined in [*Standards for Efficient Cryptography (SEC)* (Certicom Research)](http://www.secg.org/sec2-v2.pdf).
@@ -177,12 +177,12 @@ In Arweave, *Tags* are important when a user tries to retrieve certain transacti
 
 ZK DID is registered and managed on a dedicated DID Registry on Arweave.
 
-- Anyone can create ZK DID by interacting with zCloak DID Registry Manager. We provide [`create`](https://github.com/zCloak-Network/zkid-sdk/blob/master/packages/did/src/did/helpers.ts#L148-L216) function in our SDK.
+- Anyone can create ZK DID by interacting with zCloak DID Registry Manager. We provide [`create`](https://github.com/zCloak-Network/zkid-sdk/blob/master/packages/did/src/did/helpers.ts#L150-L219) function in our SDK.
 - Anyone can read (resolve) the DID documents by accessing public Arweave network nodes. We also provide [`resolve`](https://github.com/zCloak-Network/zkid-sdk/blob/master/packages/did-resolver/src/DidResolver.ts#L23-L28) funtion in our SDK to help achieve that.
 
 ### Create (Register)
 
-A ZK DID can be created via the [DID Create SDK[3]](https://github.com/zCloak-Network/zkid-sdk/blob/master/packages/did/src/did/helpers.ts#L148-L216) as explained below.
+A ZK DID can be created via the [DID Create SDK[3]](https://github.com/zCloak-Network/zkid-sdk/blob/master/packages/did/src/did/helpers.ts#L150-L219) as explained below.
 
 A ZK DID supports the following keys: authentication key, key agreement key, assertion key, capabilityInvocation key and capabilityDelegation key.
 
@@ -198,12 +198,13 @@ This operation creates a new DID using the `did:zk` method along with associated
 
 #### Client request format for create DID 
 
-Check more coding details about the `Creating DID functionin` our [SDK](https://github.com/zCloak-Network/zkid-sdk/blob/master/packages/did/src/did/helpers.ts#L148-L216).
+Check more coding details about the `Creating DID functionin` our [SDK](https://github.com/zCloak-Network/zkid-sdk/blob/master/packages/did/src/did/helpers.ts#L150-L219).
 
 ```ts
 export function createEcdsaFromMnemonic(
   mnemonic: string,
-  keyring: KeyringInstance = new Keyring()
+  keyring: KeyringInstance = new Keyring(),
+  resolver: DidResolver = defaultResolver
 ): Did
 ```
 
